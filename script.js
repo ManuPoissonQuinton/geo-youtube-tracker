@@ -4,15 +4,15 @@ const hotspots = [
     lat: 47.874792,
     lng: -3.905243,
     videoId: "8c3m7xtBXsY",   // ← remplace par l’ID réel de ta vidéo
-    radius: 500
+    radius: 10
   },
   // Points bonus pour tester tout de suite en vrai dans Paris
   {
     name: "Campus Explore",
     lat: 47.875131,
-    lng: -2.905436,
+    lng: -3.905436,
     videoId: "WpCe8M1E9Kw",
-    radius: 40
+    radius: 10
   },
   {
     name: "Arc de Triomphe",
@@ -137,6 +137,7 @@ closeVideo.addEventListener("click", () => {
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js');
 }
+
 
 
 
