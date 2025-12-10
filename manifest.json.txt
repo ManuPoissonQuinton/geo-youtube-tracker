@@ -1,0 +1,15 @@
+{
+  "name": "Geo YouTube Tracker",
+  "short_name": "GeoYT",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#1e40af",
+  "icons": [
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/8/82/YouTube_logo_2017.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}

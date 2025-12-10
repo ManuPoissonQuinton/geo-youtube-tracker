@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Geo YouTube Trigger</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#1e40af" />
+  <!-- Icône pour écran d'accueil téléphone -->
+  <link rel="apple-touch-icon" href="https://upload.wikimedia.org/wikipedia/commons/8/82/YouTube_logo_2017.svg" />
+</head>
+<body>
+  <div id="app">
+    <h1>Geo YouTube Tracker</h1>
+    <p id="status">Appuyez sur "Activer la localisation" pour commencer</p>
+    <button id="startBtn">Activer la localisation</button>
+
+    <div id="map"></div>
+
+    <div id="video-container" class="hidden">
+      <div id="video-title"></div>
+      <div class="video-wrapper">
+        <iframe id="youtube-player" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <button id="closeVideo">Fermer la vidéo</button>
+    </div>
+  </div>
+
+  <!-- Leaflet CSS + JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

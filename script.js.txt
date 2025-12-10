@@ -1,0 +1,132 @@
+const hotspots = [
+  {
+    name: "Atelier eXplore",
+    lat: 48.8593,
+    lng: 2.3469,
+    videoId: "VOTRE_ID_YOUTUBE_ICI",   // ← remplace par l’ID réel de ta vidéo
+    radius: 35
+  },
+  // Points bonus pour tester tout de suite en vrai dans Paris
+  {
+    name: "Tour Eiffel",
+    lat: 48.8584,
+    lng: 2.2945,
+    videoId: "dQw4w9WgXcQ",
+    radius: 40
+  },
+  {
+    name: "Arc de Triomphe",
+    lat: 48.8738,
+    lng: 2.2950,
+    videoId: "M7lc1UVf-VE",
+    radius: 40
+  },
+  {
+    name: "Musée du Louvre",
+    lat: 48.8606,
+    lng: 2.3376,
+    videoId: "9bZkp7q19f0",
+    radius: 40
+  }
+];
+
+let map, userMarker, watchId;
+const statusEl = document.getElementById("status");
+const startBtn = document.getElementById("startBtn");
+const videoContainer = document.getElementById("video-container");
+const youtubePlayer = document.getElementById("youtube-player");
+const videoTitle = document.getElementById("video-title");
+const closeVideo = document.getElementById("closeVideo");
+
+// Calcul distance en mètres (formule Haversine)
+function getDistance(lat1, lon1, lat2, lon2) {
+  const R = 6371000;
+  const toRad = (x) => x * Math.PI / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
+  const a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+    Math.sin(dLon/2) * Math.sin(dLon/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return R * c;
+}
+
+// Initialiser la carte
+function initMap(lat = 48.8566, lng = 2.3522) {
+  map = L.map('map').setView([lat, lng], 15);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Marqueurs des hotspots
+  hotspots.forEach(h => {
+    L.circle([h.lat, h.lng], {
+      radius: h.radius,
+      color: '#3b82f6',
+      fillOpacity: 0.2
+    }).addTo(map);
+    L.marker([h.lat, h.lng]).addTo(map)
+      .bindPopup(`<b>${h.name}</b><br>Rayon : ${h.radius}m`);
+  });
+}
+
+// Démarrer la géolocalisation
+startBtn.addEventListener("click", () => {
+  if (!navigator.geolocation) {
+    statusEl.textContent = "Géolocalisation non supportée";
+    return;
+  }
+
+  statusEl.textContent = "Localisation en cours…";
+  startBtn.disabled = true;
+
+  watchId = navigator.geolocation.watchPosition(
+    (position) => {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+      statusEl.textContent = `Position : ${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+
+      // Mettre à jour le marqueur utilisateur
+      if (!userMarker) {
+        userMarker = L.circleMarker([lat, lng], {radius: 8, color: '#ef4444'}).addTo(map);
+      } else {
+        userMarker.setLatLng([lat, lng]);
+      }
+      map.panTo([lat, lng]);
+
+      // Vérifier la proximité
+      hotspots.forEach(hotspot => {
+        const dist = getDistance(lat, lng, hotspot.lat, hotspot.lng);
+        if (dist <= hotspot.radius && !videoContainer.classList.contains('hidden')) {
+          showVideo(hotspot.name, hotspot.videoId);
+        }
+      });
+    },
+    (err) => {
+      statusEl.textContent = "Erreur GPS : " + err.message;
+      startBtn.disabled = false;
+    },
+    { enableHighAccuracy: true, maximumAge: 5000, timeout: 10000 }
+  );
+
+  initMap();
+});
+
+// Afficher la vidéo
+function showVideo(title, videoId) {
+  videoTitle.textContent = title;
+  youtubePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+  videoContainer.classList.remove("hidden");
+}
+
+// Fermer la vidéo
+closeVideo.addEventListener("click", () => {
+  videoContainer.classList.add("hidden");
+  youtubePlayer.src = "";
+});
+
+// Optionnel : rendre installable comme PWA
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js');
+}
