@@ -1,17 +1,17 @@
 const hotspots = [
   {
-    name: "Atelier eXplore",
-    lat: 48.8593,
-    lng: 2.3469,
-    videoId: "VOTRE_ID_YOUTUBE_ICI",   // ← remplace par l’ID réel de ta vidéo
+    name: "Base Explore",
+    lat: 47.874792,
+    lng: -3.905243,
+    videoId: "8c3m7xtBXsY",   // ← remplace par l’ID réel de ta vidéo
     radius: 35
   },
   // Points bonus pour tester tout de suite en vrai dans Paris
   {
-    name: "Tour Eiffel",
-    lat: 48.8584,
-    lng: 2.2945,
-    videoId: "dQw4w9WgXcQ",
+    name: "Campus Explore",
+    lat: 47.875131,
+    lng: -3.905436,
+    videoId: "WpCe8M1E9Kw",
     radius: 40
   },
   {
@@ -130,3 +130,4 @@ closeVideo.addEventListener("click", () => {
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js');
 }
+
