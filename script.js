@@ -96,9 +96,16 @@ startBtn.addEventListener("click", () => {
       map.panTo([lat, lng]);
 
       // Vérifier la proximité
+      let triggered = false;
+
       hotspots.forEach(hotspot => {
         const dist = getDistance(lat, lng, hotspot.lat, hotspot.lng);
-        if (dist <= hotspot.radius && !videoContainer.classList.contains('hidden')) {
+
+        // AFFICHE LA DISTANCE EN TEMPS RÉEL (super utile pour débugger)
+        statusEl.textContent = `${hotspot.name} → ${Math.round(dist)} m`;
+
+        if (dist <= hotspot.radius && !videoContainer.classList.contains('hidden') === false) {
+          // On est dans le rayon ET la vidéo n'est PAS déjà affichée
           showVideo(hotspot.name, hotspot.videoId);
         }
       });
@@ -130,5 +137,6 @@ closeVideo.addEventListener("click", () => {
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js');
 }
+
 
 
