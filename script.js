@@ -15,10 +15,10 @@ const hotspots = [
     radius: 10
   },
   {
-    name: "Arc de Triomphe",
-    lat: 48.8738,
-    lng: 2.2950,
-    videoId: "M7lc1UVf-VE",
+    name: "Trames Vertes : l'exemple de Ty-Nay",
+    lat: 48.012939,
+    lng: -4.092418,
+    videoId: "6E6EdOdzUSs",
     radius: 40
   },
   {
@@ -137,6 +137,7 @@ closeVideo.addEventListener("click", () => {
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js');
 }
+
 
 
 
