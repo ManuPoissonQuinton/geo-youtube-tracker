@@ -22,11 +22,11 @@ const hotspots = [
     radius: 40
   },
   {
-    name: "Musée du Louvre",
-    lat: 48.8606,
-    lng: 2.3376,
-    videoId: "9bZkp7q19f0",
-    radius: 40
+    name: "Les bandes fleuries en agriculture",
+    lat: 48.012293,
+    lng: -4.092960,
+    videoId: "-RNmT21b3WA",
+    radius: 10
   }
 ];
 
@@ -137,6 +137,7 @@ closeVideo.addEventListener("click", () => {
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js');
 }
+
 
 
 
