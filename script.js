@@ -23,8 +23,8 @@ const hotspots = [
   },
   {
     name: "Les bandes fleuries en agriculture",
-    lat: 48.012293,
-    lng: -4.092960,
+    lat: 48.012887,
+    lng: -4.093207,
     videoId: "-RNmT21b3WA",
     radius: 10
   }
@@ -137,6 +137,7 @@ closeVideo.addEventListener("click", () => {
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js');
 }
+
 
 
 
